@@ -116,33 +116,48 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
     {
-        path: '/example',
+        path: '/artical',
         component: Layout,
-        redirect: '/example/list',
-        name: 'Example',
+        redirect: '/artical/list',
+        name: 'artical',
         meta: {
-            title: 'Example',
+            title: '文章管理',
             icon: 'example'
         },
         children: [
             {
                 path: 'create',
-                component: () => import('@/views/example/create'),
+                component: () => import('@/views/artical/create'),
                 name: 'CreateArticle',
-                meta: { title: 'Create Article', icon: 'edit' }
+                meta: {
+                    title: '创建文章',
+                    icon: 'edit'
+                }
             },
             {
                 path: 'edit/:id(\\d+)',
-                component: () => import('@/views/example/edit'),
+                component: () => import('@/views/artical/edit'),
                 name: 'EditArticle',
-                meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
+                meta: { title: 'Edit Article', noCache: true, activeMenu: '/artical/list' },
                 hidden: true
             },
             {
                 path: 'list',
-                component: () => import('@/views/example/list'),
+                component: () => import('@/views/artical/list'),
                 name: 'ArticleList',
-                meta: { title: 'Article List', icon: 'list' }
+                meta: {
+                    title: '文章列表',
+                    icon: 'list'
+                }
+            },
+            {
+                path: 'classify',
+                component: () => import('@/views/artical/classify'),
+                name: 'classify',
+                meta: {
+                    title: '文章分类',
+                    icon: 'tree'
+                }
             }
         ]
     },
@@ -185,18 +200,6 @@ export const asyncRoutes = [
                 component: () => import('@/views/error-page/404'),
                 name: 'Page404',
                 meta: { title: '404', noCache: true }
-            }
-        ]
-    },
-    {
-        path: '/clipboard',
-        component: Layout,
-        children: [
-            {
-                path: 'index',
-                component: () => import('@/views/clipboard/index'),
-                name: 'ClipboardDemo',
-                meta: { title: 'Clipboard', icon: 'clipboard' }
             }
         ]
     },
