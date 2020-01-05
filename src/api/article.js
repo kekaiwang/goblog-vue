@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function fetchList(query) {
+export function fetchArticleList(query) {
     return request({
-        url: '/article/list',
+        url: '/admin/articleList',
         method: 'get',
         params: query
     })
@@ -13,6 +13,30 @@ export function fetchClassifyList(query) {
         url: 'admin/article/classifyList',
         method: 'get',
         params: query
+    })
+}
+
+export function createClassify(data) {
+    return request({
+        url: 'admin/article/createClassify',
+        method: 'put',
+        data
+    })
+}
+
+export function updateClassify(data) {
+    return request({
+        url: 'admin/article/updateClassify',
+        method: 'post',
+        data
+    })
+}
+
+export function modifyClassify(data) {
+    return request({
+        url: 'admin/article/modifyClassify',
+        method: 'post',
+        data
     })
 }
 
