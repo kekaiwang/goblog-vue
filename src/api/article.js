@@ -2,39 +2,39 @@ import request from '@/utils/request'
 
 export function fetchArticleList(query) {
     return request({
-        url: '/admin/articleList',
+        url: '/admin/article/articleList',
         method: 'get',
         params: query
     })
 }
 
-export function fetchClassifyList(query) {
+export function fetchTagList(query) {
     return request({
-        url: 'admin/article/classifyList',
+        url: 'admin/article/tagList',
         method: 'get',
         params: query
     })
 }
 
-export function createClassify(data) {
+export function createTag(data) {
     return request({
-        url: 'admin/article/createClassify',
+        url: 'admin/article/createTag',
         method: 'put',
         data
     })
 }
 
-export function updateClassify(data) {
+export function updateTag(data) {
     return request({
-        url: 'admin/article/updateClassify',
+        url: 'admin/article/updateTag',
         method: 'post',
         data
     })
 }
 
-export function modifyClassify(data) {
+export function modifyTag(data) {
     return request({
-        url: 'admin/article/modifyClassify',
+        url: 'admin/article/modifyTag',
         method: 'post',
         data
     })

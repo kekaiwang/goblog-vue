@@ -151,11 +151,11 @@ export const asyncRoutes = [
                 }
             },
             {
-                path: 'classify',
-                component: () => import('@/views/artical/classify'),
-                name: 'classify',
+                path: 'tag',
+                component: () => import('@/views/artical/tag'),
+                name: 'tag',
                 meta: {
-                    title: '文章分类',
+                    title: '文章标签',
                     icon: 'tree'
                 }
             }

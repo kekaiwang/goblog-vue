@@ -52,7 +52,7 @@
             </el-table-column>
         </el-table>
 
-        <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getClassifyList" />
+        <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getTagList" />
 
         <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
             <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 400px; margin-left:50px;">
@@ -81,10 +81,10 @@
 
 <script>
 import {
-    fetchClassifyList,
-    createClassify,
-    updateClassify,
-    modifyClassify
+    fetchTagList,
+    createTag,
+    updateTag,
+    modifyTag
 } from '@/api/article'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
@@ -140,12 +140,12 @@ export default {
         }
     },
     created() {
-        this.getClassifyList()
+        this.getTagList()
     },
     methods: {
-        getClassifyList() {
+        getTagList() {
             this.listLoading = true
-            fetchClassifyList(this.listQuery).then(response => {
+            fetchTagList(this.listQuery).then(response => {
                 this.list = response.Data.Data
                 this.total = response.Data.Total
                 this.listLoading = false
@@ -167,7 +167,7 @@ export default {
             this.$refs['dataForm'].validate((valid) => {
                 if (valid) {
                     this.temp.status = parseInt(this.temp.status)
-                    createClassify(this.temp).then((response) => {
+                    createTag(this.temp).then((response) => {
                         this.list.unshift(response.Data)
                         this.dialogFormVisible = false
                         this.$notify({
@@ -199,7 +199,8 @@ export default {
                     const tempData = Object.assign({}, this.temp)
                     tempData.status = parseInt(tempData.status)
 
-                    updateClassify(tempData).then(() => {
+                    updateTag(tempData).then(() => {
+                        this.getTagList()
                         // for (const v of this.list) {
                         //     if (v.Id === this.temp.id) {
                         //         const index = this.list.indexOf(v)
@@ -226,7 +227,7 @@ export default {
             }).then(() => {
                 const tempData = Object.assign({}, row)
                 tempData.Status = 3
-                modifyClassify(tempData).then(() => {
+                modifyTag(tempData).then(() => {
                     for (const v of this.list) {
                         if (v.Id === tempData.Id) {
                             const index = this.list.indexOf(v)
@@ -254,7 +255,7 @@ export default {
             }).then(() => {
                 const tempData = Object.assign({}, row)
                 tempData.Status = 1
-                modifyClassify(tempData).then(() => {
+                modifyTag(tempData).then(() => {
                     for (const v of this.list) {
                         if (v.Id === tempData.Id) {
                             const index = this.list.indexOf(v)
