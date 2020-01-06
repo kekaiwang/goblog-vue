@@ -158,6 +158,15 @@ export const asyncRoutes = [
                     title: '文章标签',
                     icon: 'tree'
                 }
+            },
+            {
+                path: 'category',
+                component: () => import('@/views/artical/category'),
+                name: 'category',
+                meta: {
+                    title: '文章分类',
+                    icon: 'component'
+                }
             }
         ]
     },

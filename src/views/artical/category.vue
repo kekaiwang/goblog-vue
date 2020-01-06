@@ -12,7 +12,7 @@
                 </template>
             </el-table-column>
 
-            <el-table-column align="center" label="名称">
+            <el-table-column align="center" label="分类名称">
                 <template slot-scope="scope">
                     <span>{{ scope.row.Name }}</span>
                 </template>
@@ -28,7 +28,7 @@
 
             <el-table-column class-name="status-col" label="关联数量">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.UseTimes }}</span>
+                    <span>{{ scope.row.LinkArticle }}</span>
                 </template>
             </el-table-column>
 
@@ -53,16 +53,16 @@
             </el-table-column>
         </el-table>
 
-        <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getTagList" />
+        <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getCategoryList" />
 
         <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-            <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 400px; margin-left:50px;">
-                <el-form-item label="名称" prop="name">
-                    <el-input v-model="temp.name" />
+            <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="100px" style="width: 400px; margin-left:50px;">
+                <el-form-item label="分类名称" prop="Name">
+                    <el-input v-model="temp.Name" />
                 </el-form-item>
 
                 <el-form-item label="状态">
-                    <el-select v-model="temp.status" class="filter-item" placeholder="Please select">
+                    <el-select v-model="temp.Status" class="filter-item" placeholder="Please select">
                         <el-option v-for="(item, key) in statusOptions" :key="item" :label="item" :value="key" />
                     </el-select>
                 </el-form-item>
@@ -82,14 +82,14 @@
 
 <script>
 import {
-    fetchTagList,
-    createTag,
-    updateTag
+    fetchCategoryList,
+    createCategory,
+    updateCategory
 } from '@/api/article'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
 export default {
-    name: 'TagList',
+    name: 'CategoryList',
     components: { Pagination },
     filters: {
         statusFilter(status) {
@@ -120,9 +120,9 @@ export default {
                 name: ''
             },
             temp: {
-                id: undefined,
-                name: '',
-                status: 1
+                Id: undefined,
+                Name: '',
+                Status: 1
             },
             statusOptions: {
                 1: '正常',
@@ -132,21 +132,21 @@ export default {
             dialogFormVisible: false,
             dialogStatus: '',
             textMap: {
-                update: '编辑',
-                create: '新建'
+                update: '编辑分类',
+                create: '新建分类'
             },
             rules: {
-                name: [{ required: true, message: '名称必填', trigger: 'blur' }]
+                Name: [{ required: true, message: '名称必填', trigger: 'blur' }]
             }
         }
     },
     created() {
-        this.getTagList()
+        this.getCategoryList()
     },
     methods: {
-        getTagList() {
+        getCategoryList() {
             this.listLoading = true
-            fetchTagList(this.listQuery).then(response => {
+            fetchCategoryList(this.listQuery).then(response => {
                 this.list = response.Data.Data
                 this.total = response.Data.Total
                 this.listLoading = false
@@ -155,7 +155,7 @@ export default {
         handleFilter() {
             this.listQuery.limit = 10
             this.listQuery.page = 1
-            this.getTagList()
+            this.getCategoryList()
         },
         handleCreate() {
             this.dialogStatus = 'create'
@@ -164,26 +164,24 @@ export default {
         },
         resetTemp() {
             this.temp = {
-                id: undefined,
-                name: '',
-                status: '1'
+                Id: undefined,
+                Name: '',
+                Status: 1
             }
         },
         createData() {
             this.$refs['dataForm'].validate((valid) => {
                 if (valid) {
                     this.temp.status = parseInt(this.temp.status)
-                    createTag(this.temp).then((response) => {
-                        if (response !== undefined) {
-                            this.list.unshift(response.Data)
-                            this.dialogFormVisible = false
-                            this.$notify({
-                                title: 'Success',
-                                message: 'Created Successfully',
-                                type: 'success',
-                                duration: 2000
-                            })
-                        }
+                    createCategory(this.temp).then((response) => {
+                        this.list.unshift(response.Data)
+                        this.dialogFormVisible = false
+                        this.$notify({
+                            title: 'Success',
+                            message: 'Created Successfully',
+                            type: 'success',
+                            duration: 2000
+                        })
                     })
                 }
             })
@@ -192,9 +190,9 @@ export default {
             this.dialogStatus = 'update'
             this.dialogFormVisible = true
             this.temp = {
-                id: row.Id,
-                name: row.Name,
-                status: String(row.Status)
+                Id: row.Id,
+                Name: row.Name,
+                Status: String(row.Status)
             }
 
             this.$nextTick(() => {
@@ -205,10 +203,10 @@ export default {
             this.$refs['dataForm'].validate((valid) => {
                 if (valid) {
                     const tempData = Object.assign({}, this.temp)
-                    tempData.status = parseInt(tempData.status)
+                    tempData.Status = parseInt(tempData.Status)
 
-                    updateTag(tempData).then(() => {
-                        this.getTagList()
+                    updateCategory(tempData).then(() => {
+                        this.getCategoryList()
                         // for (const v of this.list) {
                         //     if (v.Id === this.temp.id) {
                         //         const index = this.list.indexOf(v)
@@ -242,7 +240,7 @@ export default {
             }).then(() => {
                 const tempData = Object.assign({}, row)
                 tempData.Status = type
-                updateTag(tempData).then(() => {
+                updateCategory(tempData).then(() => {
                     for (const v of this.list) {
                         if (v.Id === tempData.Id) {
                             const index = this.list.indexOf(v)
@@ -252,13 +250,13 @@ export default {
                     }
                     this.$message({
                         type: 'success',
-                        message: '操作成功!'
+                        message: '删除成功!'
                     })
                 })
             }).catch(() => {
                 this.$message({
                     type: 'info',
-                    message: '已取消操作'
+                    message: '已取消删除'
                 })
             })
         }

@@ -8,6 +8,7 @@ export function fetchArticleList(query) {
     })
 }
 
+// ------------- tag -------------
 export function fetchTagList(query) {
     return request({
         url: 'admin/article/tagList',
@@ -32,9 +33,26 @@ export function updateTag(data) {
     })
 }
 
-export function modifyTag(data) {
+// ------------- category -------------
+export function fetchCategoryList(data) {
     return request({
-        url: 'admin/article/modifyTag',
+        url: 'admin/article/categoryList',
+        method: 'get',
+        params: data
+    })
+}
+
+export function createCategory(data) {
+    return request({
+        url: 'admin/article/createCategory',
+        method: 'put',
+        data
+    })
+}
+
+export function updateCategory(data) {
+    return request({
+        url: 'admin/article/updateCategory',
         method: 'post',
         data
     })

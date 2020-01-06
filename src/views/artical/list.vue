@@ -3,7 +3,7 @@
         <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%">
             <el-table-column align="center" label="ID" width="80">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.id }}</span>
+                    <span>{{ scope.row.Id }}</span>
                 </template>
             </el-table-column>
 
@@ -52,7 +52,7 @@
             </el-table-column>
         </el-table>
 
-        <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+        <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getArticleList" />
     </div>
 </template>
 
@@ -91,8 +91,8 @@ export default {
         getArticleList() {
             this.listLoading = true
             fetchArticleList(this.listQuery).then(response => {
-                this.list = response.data.items
-                this.total = response.data.total
+                this.list = response.Data.Data
+                this.total = response.Data.Total
                 this.listLoading = false
             })
         }
