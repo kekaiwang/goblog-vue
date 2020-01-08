@@ -2,6 +2,10 @@
     <div class="app-container">
         <div class="filter-container">
             <el-input v-model="listQuery.title" placeholder="标题" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+
+            <router-link to="/article/create" class="link-type">
+                <el-button class="filter-item" type="primary" icon="el-icon-circle-plus-outline" style="margin-left: 10px;">新建文章</el-button>
+            </router-link>
         </div>
 
         <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%">

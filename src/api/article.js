@@ -89,18 +89,27 @@ export function createArticle(data) {
     })
 }
 
+export function updateArticle(data) {
+    return request({
+        url: 'admin/article/updateArticle',
+        method: 'post',
+        data
+    })
+}
+
+export function uploadImage(data) {
+    return request({
+        url: 'admin/article/uploadImage',
+        method: 'post',
+        headers: { 'Content-Type': 'multipart/form-data' },
+        data
+    })
+}
+
 export function fetchPv(pv) {
     return request({
         url: '/article/pv',
         method: 'get',
         params: { pv }
-    })
-}
-
-export function updateArticle(data) {
-    return request({
-        url: '/article/update',
-        method: 'post',
-        data
     })
 }

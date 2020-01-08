@@ -60,23 +60,32 @@
                     <el-input v-model="postForm.Slug" :rows="1" type="textarea" class="article-textarea" autosize placeholder="请输入路由地址" />
                 </el-form-item>
 
-                <el-form-item prop="Content" style="margin-bottom: 30px;">
-                    <Tinymce ref="editor" v-model="postForm.Content" :height="400" />
+                <el-form-item prop="Content" style="margin-bottom: 40px;">
+                    <div id="editor">
+                        <mavon-editor ref="md" v-model="postForm.Markdown" class="editor" @imgAdd="imgAdd" />
+                    </div>
                 </el-form-item>
+
+                <!-- <el-form-item prop="Content" style="margin-bottom: 30px;">
+                    <Tinymce ref="editor" v-model="postForm.Content" :height="400" />
+                </el-form-item> -->
             </div>
         </el-form>
     </div>
 </template>
 
 <script>
-import Tinymce from '@/components/Tinymce'
+import 'mavon-editor/dist/css/index.css'
+import { mavonEditor } from 'mavon-editor'
 import MDinput from '@/components/MDinput'
 import Sticky from '@/components/Sticky' // 粘性header组件
 import {
     fetchArticle,
     getCategories,
     getTags,
-    createArticle
+    createArticle,
+    uploadImage,
+    updateArticle
 } from '@/api/article'
 
 const defaultForm = {
@@ -90,12 +99,17 @@ const defaultForm = {
     Slug: '', // 路由地址
     DisplayTime: undefined, // 前台展示时间
     id: undefined,
-    IdDraft: ''
+    IdDraft: '',
+    Markdown: ''
 }
 
 export default {
     name: 'ArticleDetail',
-    components: { Tinymce, MDinput, Sticky },
+    components: {
+        MDinput,
+        Sticky,
+        mavonEditor
+    },
     props: {
         isEdit: {
             type: Boolean,
@@ -172,8 +186,8 @@ export default {
                 this.postForm = response.Data
 
                 // just for test
-                this.postForm.title += `   Article Id:${this.postForm.id}`
-                this.postForm.content_short += `   Article Id:${this.postForm.id}`
+                // this.postForm.title += `   Article Id:${this.postForm.Id}`
+                this.postForm.content_short += `   Article Id:${this.postForm.Id}`
 
                 // set tagsview title
                 this.setTagsViewTitle()
@@ -194,7 +208,7 @@ export default {
             document.title = `${title} - ${this.postForm.id}`
         },
         submitForm() {
-            console.log(this.postForm.TagIds)
+            this.postForm.Content = this.$refs['md'].d_render
             const temp = Object.assign({}, this.postForm)
             temp.TagIds = temp.TagIds.join()
             temp.CategoryId = parseInt(temp.CategoryId)
@@ -203,17 +217,30 @@ export default {
             this.$refs.postForm.validate(valid => {
                 if (valid) {
                     this.loading = true
-                    console.log(this.isEdit)
-                    createArticle(temp).then((response) => {
-                        this.$notify({
-                            title: '成功',
-                            message: '发布文章成功',
-                            type: 'success',
-                            duration: 2000
+
+                    if (this.isEdit === false) {
+                        createArticle(temp).then((response) => {
+                            this.$notify({
+                                title: '成功',
+                                message: '发布文章成功',
+                                type: 'success',
+                                duration: 2000
+                            })
+                            this.postForm.status = 'published'
+                            this.loading = false
                         })
-                        this.postForm.status = 'published'
-                        this.loading = false
-                    })
+                    } else {
+                        updateArticle(temp).then((response) => {
+                            this.$notify({
+                                title: '成功',
+                                message: '发布文章成功',
+                                type: 'success',
+                                duration: 2000
+                            })
+                            this.postForm.status = 'published'
+                            this.loading = false
+                        })
+                    }
                 } else {
                     console.log('error submit!!')
                     return false
@@ -221,12 +248,42 @@ export default {
             })
         },
         draftForm() {
-            if (this.postForm.content.length === 0 || this.postForm.title.length === 0) {
+            this.postForm.Content = this.$refs['md'].d_render
+            if (this.postForm.Content.length === 0 || this.postForm.Title.length === 0) {
                 this.$message({
                     message: '请填写必要的标题和内容',
                     type: 'warning'
                 })
                 return
+            }
+            const temp = Object.assign({}, this.postForm)
+            temp.TagIds = temp.TagIds.join()
+            temp.CategoryId = parseInt(temp.CategoryId)
+            temp.IsDraft = 1 // 草稿
+
+            this.loading = true
+
+            if (this.isEdit === false) {
+                createArticle(temp).then((response) => {
+                    this.$notify({
+                        title: '成功',
+                        message: '存储草稿成功',
+                        type: 'success',
+                        duration: 2000
+                    })
+                    this.loading = false
+                })
+            } else {
+                updateArticle(temp).then((response) => {
+                    this.$notify({
+                        title: '成功',
+                        message: '存储草稿成功',
+                        type: 'success',
+                        duration: 2000
+                    })
+                    this.postForm.status = 'published'
+                    this.loading = false
+                })
             }
             this.$message({
                 message: '保存成功',
@@ -259,6 +316,13 @@ export default {
                     })
                 })
             }
+        },
+        imgAdd(pos, $file) {
+            const formdata = new FormData()
+            formdata.append('image', $file)
+            uploadImage(formdata).then(res => {
+                this.$refs['md'].$img2Url(pos, 'http://q3s0ldd3z.bkt.clouddn.com/' + res.Data)
+            })
         }
     }
 }

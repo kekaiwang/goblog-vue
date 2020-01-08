@@ -116,14 +116,8 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
     {
-        path: '/article',
+        path: '/article/create',
         component: Layout,
-        redirect: '/article/list',
-        name: 'article',
-        meta: {
-            title: '文章管理',
-            icon: 'example'
-        },
         children: [
             {
                 path: 'create',
@@ -132,6 +126,21 @@ export const asyncRoutes = [
                 meta: {
                     title: '创建文章',
                     icon: 'edit'
+                }
+            }
+        ]
+    }, {
+        path: '/article',
+        component: Layout,
+        children: [
+            {
+                path: 'list',
+                component: () => import('@/views/article/list'),
+                name: 'ArticleList',
+                noCache: true,
+                meta: {
+                    title: '文章列表',
+                    icon: 'list'
                 }
             },
             {
@@ -144,16 +153,12 @@ export const asyncRoutes = [
                     activeMenu: '/article/list'
                 },
                 hidden: true
-            },
-            {
-                path: 'list',
-                component: () => import('@/views/article/list'),
-                name: 'ArticleList',
-                meta: {
-                    title: '文章列表',
-                    icon: 'list'
-                }
-            },
+            }
+        ]
+    }, {
+        path: '/article/tag',
+        component: Layout,
+        children: [
             {
                 path: 'tag',
                 component: () => import('@/views/article/tag'),
@@ -162,7 +167,12 @@ export const asyncRoutes = [
                     title: '文章标签',
                     icon: 'tree'
                 }
-            },
+            }
+        ]
+    }, {
+        path: '/article/category',
+        component: Layout,
+        children: [
             {
                 path: 'category',
                 component: () => import('@/views/article/category'),
