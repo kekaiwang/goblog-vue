@@ -58,11 +58,34 @@ export function updateCategory(data) {
     })
 }
 
+// ----------- article -------------
 export function fetchArticle(id) {
     return request({
-        url: '/article/detail',
+        url: 'admin/article/detail',
         method: 'get',
         params: { id }
+    })
+}
+
+export function getCategories() {
+    return request({
+        url: 'admin/article/getCategories',
+        method: 'get'
+    })
+}
+
+export function getTags() {
+    return request({
+        url: 'admin/article/getTags',
+        method: 'get'
+    })
+}
+
+export function createArticle(data) {
+    return request({
+        url: 'admin/article/createArticle',
+        method: 'put',
+        data
     })
 }
 
@@ -71,14 +94,6 @@ export function fetchPv(pv) {
         url: '/article/pv',
         method: 'get',
         params: { pv }
-    })
-}
-
-export function createArticle(data) {
-    return request({
-        url: '/article/create',
-        method: 'post',
-        data
     })
 }
 

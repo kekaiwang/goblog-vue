@@ -1,36 +1,36 @@
 <template>
-  <div :style="{zIndex:zIndex,height:height,width:width}" class="pan-item">
-    <div class="pan-info">
-      <div class="pan-info-roles-container">
-        <slot />
-      </div>
-    </div>
-    <!-- eslint-disable-next-line -->
+    <div :style="{zIndex:zIndex,height:height,width:width}" class="pan-item">
+        <div class="pan-info">
+            <div class="pan-info-roles-container">
+                <slot />
+            </div>
+        </div>
+        <!-- eslint-disable-next-line -->
     <div :style="{backgroundImage: `url(${image})`}" class="pan-thumb"></div>
-  </div>
+    </div>
 </template>
 
 <script>
 export default {
-  name: 'PanThumb',
-  props: {
-    image: {
-      type: String,
-      required: true
-    },
-    zIndex: {
-      type: Number,
-      default: 1
-    },
-    width: {
-      type: String,
-      default: '150px'
-    },
-    height: {
-      type: String,
-      default: '150px'
+    name: 'PanThumb',
+    props: {
+        image: {
+            type: String,
+            required: true
+        },
+        zIndex: {
+            type: Number,
+            default: 1
+        },
+        width: {
+            type: String,
+            default: '150px'
+        },
+        height: {
+            type: String,
+            default: '150px'
+        }
     }
-  }
 }
 </script>
 

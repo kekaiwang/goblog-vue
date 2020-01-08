@@ -13,7 +13,7 @@
 
             <el-table-column width="180px" align="center" label="Date">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+                    <span>{{ scope.row.Created | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
                 </template>
             </el-table-column>
 
@@ -33,7 +33,7 @@
 
             <el-table-column width="120px" align="center" label="分类">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.Category }}</span>
+                    <span>{{ scope.row.CategoryName }}</span>
                 </template>
             </el-table-column>
 
@@ -45,7 +45,7 @@
 
             <el-table-column min-width="300px" label="标题">
                 <template slot-scope="{row}">
-                    <router-link :to="'/article/edit/'+row.id" class="link-type">
+                    <router-link :to="'/article/edit/'+row.Id" class="link-type">
                         <span>{{ row.Title }}</span>
                     </router-link>
                 </template>
@@ -53,7 +53,7 @@
 
             <el-table-column align="center" label="操作" width="120">
                 <template slot-scope="scope">
-                    <router-link :to="'/article/edit/'+scope.row.id">
+                    <router-link :to="'/article/edit/'+scope.row.Id">
                         <el-button type="primary" size="small" icon="el-icon-edit">
                             编辑
                         </el-button>

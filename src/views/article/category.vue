@@ -166,13 +166,13 @@ export default {
             this.temp = {
                 Id: undefined,
                 Name: '',
-                Status: 1
+                Status: '1'
             }
         },
         createData() {
             this.$refs['dataForm'].validate((valid) => {
                 if (valid) {
-                    this.temp.status = parseInt(this.temp.status)
+                    this.temp.Status = parseInt(this.temp.Status)
                     createCategory(this.temp).then((response) => {
                         this.list.unshift(response.Data)
                         this.dialogFormVisible = false

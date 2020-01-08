@@ -116,10 +116,10 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
     {
-        path: '/artical',
+        path: '/article',
         component: Layout,
-        redirect: '/artical/list',
-        name: 'artical',
+        redirect: '/article/list',
+        name: 'article',
         meta: {
             title: '文章管理',
             icon: 'example'
@@ -127,7 +127,7 @@ export const asyncRoutes = [
         children: [
             {
                 path: 'create',
-                component: () => import('@/views/artical/create'),
+                component: () => import('@/views/article/create'),
                 name: 'CreateArticle',
                 meta: {
                     title: '创建文章',
@@ -136,18 +136,18 @@ export const asyncRoutes = [
             },
             {
                 path: 'edit/:id(\\d+)',
-                component: () => import('@/views/artical/edit'),
+                component: () => import('@/views/article/edit'),
                 name: 'EditArticle',
                 meta: {
                     title: '编辑文章',
                     noCache: true,
-                    activeMenu: '/artical/list'
+                    activeMenu: '/article/list'
                 },
                 hidden: true
             },
             {
                 path: 'list',
-                component: () => import('@/views/artical/list'),
+                component: () => import('@/views/article/list'),
                 name: 'ArticleList',
                 meta: {
                     title: '文章列表',
@@ -156,7 +156,7 @@ export const asyncRoutes = [
             },
             {
                 path: 'tag',
-                component: () => import('@/views/artical/tag'),
+                component: () => import('@/views/article/tag'),
                 name: 'tag',
                 meta: {
                     title: '文章标签',
@@ -165,7 +165,7 @@ export const asyncRoutes = [
             },
             {
                 path: 'category',
-                component: () => import('@/views/artical/category'),
+                component: () => import('@/views/article/category'),
                 name: 'category',
                 meta: {
                     title: '文章分类',
