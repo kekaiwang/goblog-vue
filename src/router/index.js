@@ -81,20 +81,6 @@ export const constantRoutes = [
         ]
     },
     {
-        path: '/guide',
-        component: Layout,
-        redirect: '/guide/index',
-        hidden: true,
-        children: [
-            {
-                path: 'index',
-                component: () => import('@/views/guide/index'),
-                name: 'Guide',
-                meta: { title: 'Guide', icon: 'guide', noCache: true }
-            }
-        ]
-    },
-    {
         path: '/profile',
         component: Layout,
         redirect: '/profile/index',

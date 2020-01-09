@@ -7,7 +7,7 @@
         <el-tabs type="border-card">
             <el-tab-pane label="Icons">
                 <div class="grid">
-                    <div v-for="item of svgIcons" :key="item" @click="handleClipboard(generateIconCode(item),$event)">
+                    <div v-for="item of svgIcons" :key="item">
                         <el-tooltip placement="top">
                             <div slot="content">
                                 {{ generateIconCode(item) }}
@@ -22,7 +22,7 @@
             </el-tab-pane>
             <el-tab-pane label="Element-UI Icons">
                 <div class="grid">
-                    <div v-for="item of elementIcons" :key="item" @click="handleClipboard(generateElementIconCode(item),$event)">
+                    <div v-for="item of elementIcons" :key="item">
                         <el-tooltip placement="top">
                             <div slot="content">
                                 {{ generateElementIconCode(item) }}
@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import clipboard from '@/utils/clipboard'
 import svgIcons from './svg-icons'
 import elementIcons from './element-icons'
 
@@ -58,9 +57,6 @@ export default {
         },
         generateElementIconCode(symbol) {
             return `<i class="el-icon-${symbol}" />`
-        },
-        handleClipboard(text, event) {
-            clipboard(text, event)
         }
     }
 }
