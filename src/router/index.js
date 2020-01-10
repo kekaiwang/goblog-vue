@@ -106,7 +106,7 @@ export const asyncRoutes = [
         component: Layout,
         children: [
             {
-                path: 'create',
+                path: '',
                 component: () => import('@/views/article/create'),
                 name: 'CreateArticle',
                 meta: {
@@ -146,11 +146,12 @@ export const asyncRoutes = [
         component: Layout,
         children: [
             {
-                path: 'tag',
+                path: '',
                 component: () => import('@/views/article/tag'),
                 name: 'tag',
                 meta: {
                     title: '文章标签',
+                    noCache: true,
                     icon: 'tree'
                 }
             }
@@ -160,13 +161,51 @@ export const asyncRoutes = [
         component: Layout,
         children: [
             {
-                path: 'category',
+                path: '',
                 component: () => import('@/views/article/category'),
                 name: 'category',
                 meta: {
                     title: '文章分类',
                     icon: 'component'
                 }
+            }
+        ]
+    },
+    {
+        path: '/page',
+        component: Layout,
+        children: [
+            {
+                path: 'list',
+                component: () => import('@/views/page/list'),
+                name: 'PageList',
+                noCache: true,
+                meta: {
+                    title: '页面列表',
+                    icon: 'list'
+                }
+            },
+            {
+                path: 'create',
+                component: () => import('@/views/page/create'),
+                name: 'EditPage',
+                meta: {
+                    title: '新建页面',
+                    noCache: true,
+                    activeMenu: '/page/list'
+                },
+                hidden: true
+            },
+            {
+                path: 'edit/:slug(\\w+)',
+                component: () => import('@/views/page/edit'),
+                name: 'EditPage',
+                meta: {
+                    title: '编辑页面',
+                    noCache: true,
+                    activeMenu: '/page/list'
+                },
+                hidden: true
             }
         ]
     },
