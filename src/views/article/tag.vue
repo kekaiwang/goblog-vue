@@ -18,6 +18,12 @@
                 </template>
             </el-table-column>
 
+            <el-table-column align="center" label="路由链接">
+                <template slot-scope="scope">
+                    <span>{{ scope.row.RouterLink }}</span>
+                </template>
+            </el-table-column>
+
             <el-table-column class-name="status-col" label="状态">
                 <template slot-scope="{row}">
                     <el-tag :type="row.Status | statusFilter">
@@ -56,9 +62,13 @@
         <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getTagList" />
 
         <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-            <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 400px; margin-left:50px;">
+            <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
                 <el-form-item label="名称" prop="name">
                     <el-input v-model="temp.name" />
+                </el-form-item>
+
+                <el-form-item label="路由链接" prop="RouterLink">
+                    <el-input v-model="temp.RouterLink" />
                 </el-form-item>
 
                 <el-form-item label="状态">
@@ -122,6 +132,7 @@ export default {
             temp: {
                 id: undefined,
                 name: '',
+                RouterLink: '',
                 status: 1
             },
             statusOptions: {
@@ -136,7 +147,8 @@ export default {
                 create: '新建'
             },
             rules: {
-                name: [{ required: true, message: '名称必填', trigger: 'blur' }]
+                name: [{ required: true, message: '名称必填', trigger: 'blur' }],
+                RouterLink: [{ required: true, message: '路由链接必填必填', trigger: 'blur' }]
             }
         }
     },

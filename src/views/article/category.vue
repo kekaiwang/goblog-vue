@@ -18,6 +18,12 @@
                 </template>
             </el-table-column>
 
+            <el-table-column align="center" label="路由链接">
+                <template slot-scope="scope">
+                    <span>{{ scope.row.RouterLink }}</span>
+                </template>
+            </el-table-column>
+
             <el-table-column class-name="status-col" label="状态">
                 <template slot-scope="{row}">
                     <el-tag :type="row.Status | statusFilter">
@@ -59,6 +65,10 @@
             <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="100px" style="width: 400px; margin-left:50px;">
                 <el-form-item label="分类名称" prop="Name">
                     <el-input v-model="temp.Name" />
+                </el-form-item>
+
+                <el-form-item label="路由链接" prop="RouterLink">
+                    <el-input v-model="temp.RouterLink" />
                 </el-form-item>
 
                 <el-form-item label="状态">
@@ -122,6 +132,7 @@ export default {
             temp: {
                 Id: undefined,
                 Name: '',
+                RouterLink: '',
                 Status: 1
             },
             statusOptions: {
@@ -136,7 +147,8 @@ export default {
                 create: '新建分类'
             },
             rules: {
-                Name: [{ required: true, message: '名称必填', trigger: 'blur' }]
+                Name: [{ required: true, message: '名称必填', trigger: 'blur' }],
+                RouterLink: [{ required: true, message: '路由链接必填必填', trigger: 'blur' }]
             }
         }
     },
@@ -166,6 +178,7 @@ export default {
             this.temp = {
                 Id: undefined,
                 Name: '',
+                RouterLink: '',
                 Status: '1'
             }
         },

@@ -200,12 +200,12 @@ export default {
         },
         setTagsViewTitle() {
             const title = 'Edit Article'
-            const route = Object.assign({}, this.tempRoute, { title: `${title}-${this.postForm.id}` })
+            const route = Object.assign({}, this.tempRoute, { title: `${title}-${this.postForm.Id}` })
             this.$store.dispatch('tagsView/updateVisitedView', route)
         },
         setPageTitle() {
             const title = 'Edit Article'
-            document.title = `${title} - ${this.postForm.id}`
+            document.title = `${title} - ${this.postForm.Id}`
         },
         submitForm() {
             this.postForm.Content = this.$refs['md'].d_render
