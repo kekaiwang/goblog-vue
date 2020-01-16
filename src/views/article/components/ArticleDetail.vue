@@ -60,6 +60,10 @@
                     <el-input v-model="postForm.Slug" :rows="1" type="textarea" class="article-textarea" autosize placeholder="请输入路由地址" />
                 </el-form-item>
 
+                <el-form-item style="margin-bottom: 40px;" prop="Thumb" label-width="80px" label="缩略图 :">
+                    <el-input v-model="postForm.Thumb" :rows="1" type="textarea" class="article-textarea" autosize placeholder="从富文本编辑器获取地址" />
+                </el-form-item>
+
                 <el-form-item prop="Content" style="margin-bottom: 40px;">
                     <div id="editor">
                         <mavon-editor ref="md" v-model="postForm.Markdown" class="editor" @imgAdd="imgAdd" />
@@ -97,6 +101,7 @@ const defaultForm = {
     Content: '', // 文章内容
     Excerpt: '', // 文章摘要
     Slug: '', // 路由地址
+    Thumb: '', // 缩略图
     DisplayTime: undefined, // 前台展示时间
     id: undefined,
     IdDraft: '',

@@ -54,7 +54,7 @@ service.interceptors.response.use(
             })
 
             // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-            if (res.Status === 50008 || res.Status === 50012 || res.Status === 50014) {
+            if (res.Status === 50008 || res.Status === 50012 || res.Status === 50014 || res.Status === 301) {
                 // to re-login
                 MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
                     confirmButtonText: 'Re-Login',
