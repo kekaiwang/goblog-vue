@@ -326,7 +326,7 @@ export default {
             const formdata = new FormData()
             formdata.append('image', $file)
             uploadImage(formdata).then(res => {
-                this.$refs['md'].$img2Url(pos, 'http://q3s0ldd3z.bkt.clouddn.com/' + res.Data)
+                this.$refs['md'].$img2Url(pos, 'https://mail.wangkekai.cn/' + res.Data)
             })
         }
     }

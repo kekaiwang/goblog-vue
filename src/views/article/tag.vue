@@ -206,6 +206,7 @@ export default {
             this.temp = {
                 id: row.Id,
                 name: row.Name,
+                RouterLink: row.RouterLink,
                 status: String(row.Status)
             }
 
