@@ -17,7 +17,13 @@
 
             <el-table-column width="180px" align="center" label="Date">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.Created | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+                    <span>{{ scope.row.Created | parseTime('{y}-{m}-{d}') }}</span>
+                </template>
+            </el-table-column>
+
+            <el-table-column width="180px" align="center" label="显示时间">
+                <template slot-scope="scope">
+                    <span>{{ scope.row.DisplayTime | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
                 </template>
             </el-table-column>
 
