@@ -36,7 +36,7 @@ export function updateTag(data) {
 // ------------- category -------------
 export function fetchCategoryList(data) {
     return request({
-        url: 'admin/article/categoryList',
+        url: '/admin/category/list',
         method: 'get',
         params: data
     })
@@ -44,7 +44,7 @@ export function fetchCategoryList(data) {
 
 export function createCategory(data) {
     return request({
-        url: 'admin/article/createCategory',
+        url: '/admin/category/create',
         method: 'put',
         data
     })
@@ -52,7 +52,7 @@ export function createCategory(data) {
 
 export function updateCategory(data) {
     return request({
-        url: 'admin/article/updateCategory',
+        url: '/admin/category/update',
         method: 'post',
         data
     })

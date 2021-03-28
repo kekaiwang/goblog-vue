@@ -8,48 +8,48 @@
         <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%">
             <el-table-column align="center" label="ID" width="80">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.Id }}</span>
+                    <span>{{ scope.row.id }}</span>
                 </template>
             </el-table-column>
 
             <el-table-column align="center" label="分类名称">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.Name }}</span>
+                    <span>{{ scope.row.name }}</span>
                 </template>
             </el-table-column>
 
             <el-table-column align="center" label="路由链接">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.RouterLink }}</span>
+                    <span>{{ scope.row.router_link }}</span>
                 </template>
             </el-table-column>
 
             <el-table-column class-name="status-col" label="状态">
                 <template slot-scope="{row}">
-                    <el-tag :type="row.Status | statusFilter">
-                        {{ row.Status | statusText }}
+                    <el-tag :type="row.status | statusFilter">
+                        {{ row.status | statusText }}
                     </el-tag>
                 </template>
             </el-table-column>
 
             <el-table-column class-name="status-col" label="关联数量">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.LinkArticle }}</span>
+                    <span>{{ scope.row.link_article }}</span>
                 </template>
             </el-table-column>
 
             <el-table-column align="center" label="时间">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.Created | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+                    <span>{{ scope.row.created | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
                 </template>
             </el-table-column>
 
             <el-table-column align="left" label="操作" class-name="small-padding fixed-width">
                 <template slot-scope="scope">
-                    <el-button v-if="scope.row.Status < 3" type="primary" size="mini" @click="handleUpdate(scope.row)">
+                    <el-button v-if="scope.row.status < 3" type="primary" size="mini" @click="handleUpdate(scope.row)">
                         编辑
                     </el-button>
-                    <el-button v-if="scope.row.Status < 3" type="warning" size="mini" @click="handleChangeStatus(scope.row, 3)">
+                    <el-button v-if="scope.row.status < 3" type="warning" size="mini" @click="handleChangeStatus(scope.row, 3)">
                         删除
                     </el-button>
                     <el-button v-else type="success" size="mini" @click="handleChangeStatus(scope.row, 1)">
@@ -63,16 +63,16 @@
 
         <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
             <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="100px" style="width: 400px; margin-left:50px;">
-                <el-form-item label="分类名称" prop="Name">
-                    <el-input v-model="temp.Name" />
+                <el-form-item label="分类名称" prop="name">
+                    <el-input v-model="temp.name" />
                 </el-form-item>
 
-                <el-form-item label="路由链接" prop="RouterLink">
-                    <el-input v-model="temp.RouterLink" />
+                <el-form-item label="路由链接" prop="router_link">
+                    <el-input v-model="temp.router_link" />
                 </el-form-item>
 
                 <el-form-item label="状态">
-                    <el-select v-model="temp.Status" class="filter-item" placeholder="Please select">
+                    <el-select v-model="temp.status" class="filter-item" placeholder="Please select">
                         <el-option v-for="(item, key) in statusOptions" :key="item" :label="item" :value="key" />
                     </el-select>
                 </el-form-item>
@@ -130,10 +130,10 @@ export default {
                 name: ''
             },
             temp: {
-                Id: undefined,
-                Name: '',
-                RouterLink: '',
-                Status: 1
+                id: undefined,
+                name: '',
+                router_link: '',
+                status: 1
             },
             statusOptions: {
                 1: '正常',
@@ -147,8 +147,8 @@ export default {
                 create: '新建分类'
             },
             rules: {
-                Name: [{ required: true, message: '名称必填', trigger: 'blur' }],
-                RouterLink: [{ required: true, message: '路由链接必填必填', trigger: 'blur' }]
+                name: [{ required: true, message: '名称必填', trigger: 'blur' }],
+                router_link: [{ required: true, message: '路由链接必填必填', trigger: 'blur' }]
             }
         }
     },
@@ -159,8 +159,8 @@ export default {
         getCategoryList() {
             this.listLoading = true
             fetchCategoryList(this.listQuery).then(response => {
-                this.list = response.Data.Data
-                this.total = response.Data.Total
+                this.list = response.data.data
+                this.total = response.data.total
                 this.listLoading = false
             })
         },
@@ -176,18 +176,18 @@ export default {
         },
         resetTemp() {
             this.temp = {
-                Id: undefined,
-                Name: '',
-                RouterLink: '',
-                Status: '1'
+                id: undefined,
+                name: '',
+                router_link: '',
+                status: '1'
             }
         },
         createData() {
             this.$refs['dataForm'].validate((valid) => {
                 if (valid) {
-                    this.temp.Status = parseInt(this.temp.Status)
+                    this.temp.status = parseInt(this.temp.status)
                     createCategory(this.temp).then((response) => {
-                        this.list.unshift(response.Data)
+                        this.list.unshift(response.data)
                         this.dialogFormVisible = false
                         this.$notify({
                             title: 'Success',
@@ -203,10 +203,10 @@ export default {
             this.dialogStatus = 'update'
             this.dialogFormVisible = true
             this.temp = {
-                Id: row.Id,
-                Name: row.Name,
-                RouterLink: row.RouterLink,
-                Status: String(row.Status)
+                id: row.id,
+                name: row.name,
+                router_link: row.router_link,
+                status: String(row.status)
             }
 
             this.$nextTick(() => {
@@ -217,7 +217,7 @@ export default {
             this.$refs['dataForm'].validate((valid) => {
                 if (valid) {
                     const tempData = Object.assign({}, this.temp)
-                    tempData.Status = parseInt(tempData.Status)
+                    tempData.status = parseInt(tempData.status)
 
                     updateCategory(tempData).then(() => {
                         this.getCategoryList()
@@ -253,10 +253,10 @@ export default {
                 type: 'warning'
             }).then(() => {
                 const tempData = Object.assign({}, row)
-                tempData.Status = type
+                tempData.status = type
                 updateCategory(tempData).then(() => {
                     for (const v of this.list) {
-                        if (v.Id === tempData.Id) {
+                        if (v.id === tempData.id) {
                             const index = this.list.indexOf(v)
                             this.list.splice(index, 1, tempData)
                             break

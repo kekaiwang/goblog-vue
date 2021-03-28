@@ -159,7 +159,6 @@ export default {
         getTagList() {
             this.listLoading = true
             fetchTagList(this.listQuery).then(response => {
-                console.log(response.data, response.data.total)
                 this.list = response.data.data
                 this.total = response.data.total
                 this.listLoading = false
