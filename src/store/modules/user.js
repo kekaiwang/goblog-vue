@@ -35,8 +35,8 @@ const actions = {
         return new Promise((resolve, reject) => {
             login({ username: username.trim(), password: password }).then(response => {
                 // const { data } = response
-                commit('SET_TOKEN', response.Data)
-                setToken(response.Data)
+                commit('SET_TOKEN', response.data.password)
+                setToken(response.data.password)
                 resolve()
             }).catch(error => {
                 console.log(error)
@@ -48,13 +48,13 @@ const actions = {
     getInfo({ commit, state }) {
         return new Promise((resolve, reject) => {
             getInfo(state.token).then(response => {
-                const { Data } = response
+                const { data } = response
 
-                if (!Data) {
+                if (!data) {
                     reject('Verification failed, please Login again.')
                 }
 
-                const { Roles, Name, Avatar, Introduction } = Data
+                const { Roles, Name, Avatar, Introduction } = data
 
                 // roles must be a non-empty array
                 if (!Roles || Roles.length <= 0) {
@@ -65,7 +65,7 @@ const actions = {
                 commit('SET_NAME', Name)
                 commit('SET_AVATAR', Avatar)
                 commit('SET_INTRODUCTION', Introduction)
-                resolve(Data)
+                resolve(data)
             }).catch(error => {
                 reject(error)
             })

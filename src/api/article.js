@@ -11,7 +11,7 @@ export function fetchArticleList(query) {
 // ------------- tag -------------
 export function fetchTagList(query) {
     return request({
-        url: 'admin/article/tagList',
+        url: '/admin/tag/list',
         method: 'get',
         params: query
     })
@@ -27,8 +27,8 @@ export function createTag(data) {
 
 export function updateTag(data) {
     return request({
-        url: 'admin/article/updateTag',
-        method: 'post',
+        url: '/admin/article/updateTag',
+        method: 'update',
         data
     })
 }

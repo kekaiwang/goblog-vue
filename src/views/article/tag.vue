@@ -8,48 +8,48 @@
         <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%">
             <el-table-column align="center" label="ID" width="80">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.Id }}</span>
+                    <span>{{ scope.row.id }}</span>
                 </template>
             </el-table-column>
 
             <el-table-column align="center" label="名称">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.Name }}</span>
+                    <span>{{ scope.row.name }}</span>
                 </template>
             </el-table-column>
 
             <el-table-column align="center" label="路由链接">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.RouterLink }}</span>
+                    <span>{{ scope.row.router_link }}</span>
                 </template>
             </el-table-column>
 
             <el-table-column class-name="status-col" label="状态">
                 <template slot-scope="{row}">
-                    <el-tag :type="row.Status | statusFilter">
-                        {{ row.Status | statusText }}
+                    <el-tag :type="row.status | statusFilter">
+                        {{ row.status | statusText }}
                     </el-tag>
                 </template>
             </el-table-column>
 
             <el-table-column class-name="status-col" label="关联数量">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.UseTimes }}</span>
+                    <span>{{ scope.row.use_times }}</span>
                 </template>
             </el-table-column>
 
             <el-table-column align="center" label="时间">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.Created | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+                    <span>{{ scope.row.created | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
                 </template>
             </el-table-column>
 
             <el-table-column align="left" label="操作" class-name="small-padding fixed-width">
                 <template slot-scope="scope">
-                    <el-button v-if="scope.row.Status < 3" type="primary" size="mini" @click="handleUpdate(scope.row)">
+                    <el-button v-if="scope.row.status < 3" type="primary" size="mini" @click="handleUpdate(scope.row)">
                         编辑
                     </el-button>
-                    <el-button v-if="scope.row.Status < 3" type="warning" size="mini" @click="handleChangeStatus(scope.row, 3)">
+                    <el-button v-if="scope.row.status < 3" type="warning" size="mini" @click="handleChangeStatus(scope.row, 3)">
                         删除
                     </el-button>
                     <el-button v-else type="success" size="mini" @click="handleChangeStatus(scope.row, 1)">
@@ -159,8 +159,9 @@ export default {
         getTagList() {
             this.listLoading = true
             fetchTagList(this.listQuery).then(response => {
-                this.list = response.Data.Data
-                this.total = response.Data.Total
+                console.log(response.data, response.data.total)
+                this.list = response.data.data
+                this.total = response.data.total
                 this.listLoading = false
             })
         },
@@ -254,7 +255,7 @@ export default {
                 type: 'warning'
             }).then(() => {
                 const tempData = Object.assign({}, row)
-                tempData.Status = type
+                tempData.status = type
                 updateTag(tempData).then(() => {
                     for (const v of this.list) {
                         if (v.Id === tempData.Id) {
