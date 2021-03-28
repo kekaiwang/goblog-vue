@@ -19,7 +19,7 @@ export function fetchTagList(query) {
 
 export function createTag(data) {
     return request({
-        url: 'admin/article/createTag',
+        url: '/admin/tag/create',
         method: 'put',
         data
     })
@@ -27,8 +27,8 @@ export function createTag(data) {
 
 export function updateTag(data) {
     return request({
-        url: '/admin/article/updateTag',
-        method: 'update',
+        url: '/admin/tag/update',
+        method: 'post',
         data
     })
 }

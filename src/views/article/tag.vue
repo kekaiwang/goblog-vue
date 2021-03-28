@@ -67,8 +67,8 @@
                     <el-input v-model="temp.name" />
                 </el-form-item>
 
-                <el-form-item label="路由链接" prop="RouterLink">
-                    <el-input v-model="temp.RouterLink" />
+                <el-form-item label="路由链接" prop="router_link">
+                    <el-input v-model="temp.router_link" />
                 </el-form-item>
 
                 <el-form-item label="状态">
@@ -132,7 +132,7 @@ export default {
             temp: {
                 id: undefined,
                 name: '',
-                RouterLink: '',
+                router_link: '',
                 status: 1
             },
             statusOptions: {
@@ -148,7 +148,7 @@ export default {
             },
             rules: {
                 name: [{ required: true, message: '名称必填', trigger: 'blur' }],
-                RouterLink: [{ required: true, message: '路由链接必填必填', trigger: 'blur' }]
+                router_link: [{ required: true, message: '路由链接必填必填', trigger: 'blur' }]
             }
         }
     },
@@ -188,7 +188,7 @@ export default {
                     this.temp.status = parseInt(this.temp.status)
                     createTag(this.temp).then((response) => {
                         if (response !== undefined) {
-                            this.list.unshift(response.Data)
+                            this.list.unshift(response.data)
                             this.dialogFormVisible = false
                             this.$notify({
                                 title: 'Success',
@@ -205,10 +205,10 @@ export default {
             this.dialogStatus = 'update'
             this.dialogFormVisible = true
             this.temp = {
-                id: row.Id,
-                name: row.Name,
-                RouterLink: row.RouterLink,
-                status: String(row.Status)
+                id: row.id,
+                name: row.name,
+                router_link: row.router_link,
+                status: String(row.status)
             }
 
             this.$nextTick(() => {
@@ -258,7 +258,7 @@ export default {
                 tempData.status = type
                 updateTag(tempData).then(() => {
                     for (const v of this.list) {
-                        if (v.Id === tempData.Id) {
+                        if (v.id === tempData.id) {
                             const index = this.list.indexOf(v)
                             this.list.splice(index, 1, tempData)
                             break
