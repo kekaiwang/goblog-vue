@@ -42,7 +42,7 @@
 		"url": "https://github.com/PanJiaChen/vue-element-admin/issues"
 	},
 	"dependencies": {
-		"axios": "0.18.1",
+		"axios": "1.6.0",
 		"echarts": "4.2.1",
 		"element-ui": "2.7.0",
 		"eslint-config-standard": "^14.1.0",
